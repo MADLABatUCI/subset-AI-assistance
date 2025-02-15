@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="robots" content="noindex" />
+        <link rel="shortcut icon" href="https://web.communications.uci.edu/assets/_common/favicon.ico" />
+
+        <!-- Page Title -->
+        <title>MADLAB Exp</title>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+        <!-- Firebase Config -->
+        <script src="js/firebaseconfig.js"></script>
+        <script src="js/firebasepsych1.0.js" type="module"></script>
+
+        <style type="text/css">
+            .site-header {
+                background-color: #0064a4 !important;
+            }
+            .site-header .container {
+                padding-top: 10px;
+                padding-bottom: 10px
+            }
+            .university-logo {
+                /*aspect-ratio: 1;*/
+                height: 75px; width: auto;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            #experiment-title {
+                color: #ffffff;
+                padding-top: 0.5em;
+            }
+
+            .trialbox {
+                border: 5px solid #0064a4; border-radius: 20px;
+                width:100%; height: 80vh;
+                background: #EEEEEE;
+                padding-top: 20px; padding-bottom: 20px; padding-left: 50px; padding-right: 50px;
+                margin: 0 auto;
+                margin-top: 5vh;
+                overflow: auto;
+            }
+        </style>
+
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container" id="experiment-header">
+                <div class="row">
+                    <div class="col-2">
+                        <img class="university-logo" id="university-logo-left" />
+                    </div>
+                    <div class="col-8 text-center">
+                        <h2 id="experiment-title"></h2>
+                    </div>
+                    <div class="col-2">
+                        <img class="float-right university-logo" id="university-logo-right" />
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main role="main" class="container" id="super-container">
+            <div class="container trialbox" id="experiment-container">
+                TESTING
+            </div>
+        </main>
+
+        <!-- Custom JavaScript -->
+        <script src="js/metadata.js" type="module">
+        </script>
+    </body>
+</html>
