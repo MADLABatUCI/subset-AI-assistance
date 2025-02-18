@@ -42,10 +42,14 @@ export var EXPERIMENT_DATABASE_NAME = "k-subset-AI-assistance-v01";
 if (DEBUG){
         EXPERIMENT_DATABASE_NAME = "DEBUG-" + EXPERIMENT_DATABASE_NAME;
 };
+export var LEAD_RESEARCHER = "Heliodoro Tejeda";
+export var LEAD_RESEARCHER_EMAIL = "htejeda@uci.edu";
+export var FACULTY_SPONSOR = "Mark Steyvers";
+export var FACULTY_SPONSOR_EMAIL = "mark.steyvers@uci.edu";
 
 // CONTENT FILES
-export var CONSENT_FILE = "html/consent.html";
-export var INSTRUCTIONS_FILE = "html/instructions.html";
+export var CONSENT_FILE = "html/1-consent.html";
+export var INSTRUCTIONS_FILE = "html/2-instructions.html";
 
 // UNIVERSITY IMAGES/LOGOS
 export var UNIVERSITY_SEAL = "images/uci_seal.png";
@@ -64,7 +68,7 @@ var UNIVERSITY_HEADER = true;
 function displayExperimentHeader () {
     /* Display a header based on metadata parameters. */
     if (UNIVERSITY_HEADER) {
-        setText(EXPERIMENT_NAME);
+        setText("experiment-title", EXPERIMENT_NAME);
         placeImage("university-logo-left", UNIVERSITY_LOGO_LEFT);
         placeImage("university-logo-right", UNIVERSITY_LOGO_RIGHT);
     } else {
