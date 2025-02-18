@@ -1,0 +1,196 @@
+<!--
+consent.html
+
+    Author      :   Helio Tejeda
+    University  :   University of California, Irvine
+    Lab         :   Modeling and Decision-Making Lab (MADLAB)
+
+Consent HTML file.
+
+This file contains all of the consent information for an experiment.
+Remember that this is a template, so this might not encompass all of
+the information you want to convey in your consent form. However, this
+is a good starting point and you should be able to edit this page as
+you need.
+
+Be sure to update the consent.js file with all of the consent
+metadata necessary. This information includes:
+    - Lead Researcher
+    - Compensation
+    - Etc
+-->
+<html>
+    <head>
+        <!--
+            Custom JavaScript - Consent Page Metadata and Functionality
+        -->
+        <script src="js/1-consent.js" type="module">
+        </script>
+
+        <style type="text/css">
+            #university-seal {
+                height: 125px;
+                width: 125px;
+                margin: 5px 5px;
+            }
+
+            #consent-check-box {
+                border: 2px solid #0064a4;
+                background-color: rgba(0,0,0,0.02);
+                padding: 10px;
+                margin:0 auto;
+            }
+
+            #consent-submit {
+                margin-bottom: 10px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="block-text">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>
+                                        <h3 style="color: #0064a4"><b>Welcome to the experiment!</b></h3>
+                                    </p>
+                                    <p style="color: red">
+                                        <b>Please, read the information below <b>carefully</b> before you decide to participate in this study.</b>
+                                    </p>
+                                </td>
+                                <td>
+                                    <img id="university-seal" alt="University logo" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="highlight">
+                    <hr />
+                    <h3 align="center">
+                        <b>Participant Information Sheet</b>
+                    </h3>
+
+                    <h5><b>Project Summary</b></h5>
+                    <p class="ml-4" id="experiment-summary">
+                        We aim to study how humans use/interact with an Artificial Intelligence (AI) agent when making decisions. By having participants complete a task with the aid of an AI, we can learn: how humans integrate AI input into their decision making, how humans learn about an AI over time, what differences occur due to different presentations of AI aid.
+                    </p>
+
+                    <h5><b>Time Commitment</b></h5>
+                    <p class="ml-4">
+                        The study typically takes
+                        <b><i>
+                            <text id="time-commitment">
+                                20-30 minutes
+                            </text>
+                        </i></b>
+                        to complete.
+                        <br />
+                        <b><u>Note</u> :</b> This page will not save your progress.
+                    </p>
+
+                    <h5><b>Benefits & Risks</b></h5>
+                    <p class="ml-4" id="benefits-and-risks">
+                        There are no direct benefits from your participation in this study.
+                    </p>
+
+                    <h5><b>Eligibility Requirements</b></h5>
+                    <p class="ml-4" id="eligibility-requirements">
+                        <span>1)</span>     <span class="pl-2">United States citizen/resident</span>
+                        <br />
+                        <span>2)</span>     <span class="pl-2">18 years or older</span>
+                        <br />
+                        <span>3)</span>     <span class="pl-2">English speaker</span>
+                        <br />
+                        <span>4)</span>     <span class="pl-2">HTML-5 compatible web browser (chrome, edge, safari, or firefox)</span>
+                    </p>
+
+                    <h5><b>Reimbursement & Compensation</b></h5>
+                    <p class="ml-4">
+                        You will receive 
+                        <b>
+                            <text id="compensation">
+                                $5.00
+                            </text>
+                            <i>USD</i>
+                        </b>
+                        in return for your participation via 
+                        <i>
+                            <text id="recruitment-service">
+                                Prolific
+                            </text>
+                        </i>.
+                        <br />
+                        <b><u>Note</u> :</b> 
+                        You must click on the <i>Redirect to Prolific</i> button at the end of the study to be compensated.
+                    </p>
+
+                    <h5><b>Confidentiality & Anonymity</b></h5>
+                    <p class="ml-4">
+                        All research data collected will be stored securely annd confidentially on a password protected server indefinitely.
+                        Identifying details will not be associated with any data provided by you as part of any publication or presentation.
+                    </p>
+
+                    <h5><b>Contact Information</b></h5>
+                    <p class="ml-4">
+                        University of California, Irvine - Department of Cognitive Sciences
+                        <br /> 
+                        <span id="lead-researcher">
+                            <b>Lead Researcher : </b>
+                            <i><text></text></i>
+                            (<a target="_top"></a>)
+                        </span>
+                        <br />
+                        <span id="faculty-sponsor">
+                            <b>Faculty Sponsor : </b>
+                            <i><text></text></i>
+                            (<a target="_top"></a>)
+                        </span>
+                    </p>
+                    <br />
+                    <hr />
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="row justify-content-center">
+                    <h3 align="center">
+                        <b>Consent Form</b>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="consent-check-box">
+                        <p align="left">
+                            <input type="checkbox" name="terms" id="terms" value="True">  <b>Check here</b> to confirm that:
+                            you have read and understood the <i>Participant Information Sheet</i>,
+                            you are taking part in this research study voluntarily,
+                            you meet the eligility requirements,
+                            and you are agreeing that your anonymised data may be shared in public repositories.
+                        </p>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12" id="consent-submit" align="center">
+                        <input class="btn btn-primary btn-sm" type="submit" name="submit" id="submit-consent" value="Submit and Proceed" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </body>
+</html>
