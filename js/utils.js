@@ -20,6 +20,14 @@ export function setResearcherInfo (id, name, email, subject, cc) {
     $(`#${id} a`).attr('href', mailto);
 };
 
+export function hideContent (id) {
+    $(`#${id}`).attr("hidden", true);
+};
+
+export function displayContent (id) {
+    $(`#${id}`).attr("hidden", false);
+};
+
 export function clearContent (id) {
     $(`#${id}`).html('');
 };

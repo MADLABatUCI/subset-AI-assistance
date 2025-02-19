@@ -28,13 +28,14 @@ import {
 //  Import functions and variables from experiment Metadata file
 import {
     DEBUG,
+    EXPERIMENT_DATABASE_NAME,
+    METADATA_DB_PATH,
     //EXPERIMENT_NAME,
     UNIVERSITY_SEAL,
     LEAD_RESEARCHER,
     LEAD_RESEARCHER_EMAIL,
     FACULTY_SPONSOR,
     FACULTY_SPONSOR_EMAIL,
-    EXPERIMENT_DATABASE_NAME,
     INSTRUCTIONS_FILE,
 } from "./metadata.js";
 
@@ -106,7 +107,7 @@ function submitConsent() {
     writeRealtimeDatabase(path, CONSENT_DATA);
 
     // Write to Database Metadata
-    let path_meta = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/metadata/experimentCompleted';
+    let path_meta = `${METADATA_DB_PATH}/experimentCompleted`;
     writeRealtimeDatabase(path_meta, false);
 };
 
