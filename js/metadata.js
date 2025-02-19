@@ -169,6 +169,6 @@ $(document).ready(function (){
 
     displayExperimentHeader();
 
-    //loadContent("#experiment-container", "html/1-consent.html");
-    loadContent("#experiment-container", "html/2-instructions.html");
+    loadContent("#experiment-container", "html/1-consent.html");
+    //loadContent("#experiment-container", "html/2-instructions.html");
 });
