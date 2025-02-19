@@ -61,6 +61,7 @@ export var FACULTY_SPONSOR_EMAIL = "mark.steyvers@uci.edu";
 export var CONSENT_FILE = "html/1-consent.html";
 export var INSTRUCTIONS_FILE = "html/2-instructions.html";
 export var INTEGRITY_FILE = "html/3-integrity-pledge.html";
+export var EXPERIMENT_FILE = "html/4-experiment.html";
 
 // UNIVERSITY IMAGES/LOGOS
 export var UNIVERSITY_SEAL = "images/uci_seal.png";
@@ -171,4 +172,5 @@ $(document).ready(function (){
 
     loadContent("#experiment-container", "html/1-consent.html");
     //loadContent("#experiment-container", "html/2-instructions.html");
+    //loadContent("#experiment-container", "html/3-integrity-pledge.html");
 });

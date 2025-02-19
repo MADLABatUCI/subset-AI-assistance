@@ -1,1 +1,72 @@
-Coming soon...
+<!--
+comprehension-quiz.html
+
+    Author      :   Helio Tejeda
+    University  :   University of California, Irvine
+    Lab         :   Modeling and Decision-Making Lab (MADLAB)
+
+Comprehension Quiz HTML file.
+
+This file contains comprehension quiz information for the experiment.
+
+There will be no comprehension quiz for this experiment. Rather there
+will be an integrity pledge for participants to agree to.
+-->
+<html>
+    <head>
+        <!--
+            Custom JavaScript - Experiment Page Metadata and Functionality
+        -->
+        <script src="js/3-integrity-pledge.js" type="module">
+        </script>
+
+        <style type="text/css">
+            #pledge-container {
+                height: 100%;
+                position: relative;
+            }
+            #proceed {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        </style>
+    </head>
+    <body>
+        <!--------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------
+        |   Integrity Pledge - Main Container                                            |
+        |       This holds the text for pledging integrity in participating in this      |
+        |       study.                                                                   |
+        ----------------------------------------------------------------------------------
+        --------------------------------------------------------------------------------->
+            <div class="row" id="pledge-container">
+                <div class="col-12 justify-content-center" id="integrity-pledge-container">
+                    <!--
+                    **********************
+                    *   Integrity Pledge
+                    **********************
+                    -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 align="left">
+                                <input type="checkbox" name="terms" id="integrity-pledge-button"  value="True"> 
+                                <b>Check here</b> to confirm that:
+                                you have read and understood the <i>Instructions</i> completely.
+                                By clicking on the box, you pledge that you will participate in this study to the best of your abilities
+                                and you will answer all questions honestly and thoroughly.
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row" id="proceed">
+                        <div class="col-12 right-button">
+                            <button class="btn btn-primary" id="integrity-pledge-submit" disabled>
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
