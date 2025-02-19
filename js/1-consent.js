@@ -41,7 +41,6 @@ import {
 
 //  Import utility functions
 import {
-    setText,
     placeImage,
     setResearcherInfo,
     loadContent,
@@ -100,7 +99,7 @@ function submitConsent() {
         page content.
     */
     // Hide Consent & Show Instructions
-    loadContent("experiment-container", INSTRUCTIONS_FILE);
+    loadContent("#experiment-container", INSTRUCTIONS_FILE);
 
     // Write to Database
     let path = EXPERIMENT_DATABASE_NAME + '/participantData/' + firebaseUserId + '/consentData';
@@ -109,6 +108,8 @@ function submitConsent() {
     // Write to Database Metadata
     let path_meta = `${METADATA_DB_PATH}/experimentCompleted`;
     writeRealtimeDatabase(path_meta, false);
+    let path_meta_inst = `${METADATA_DB_PATH}/instructionsCompleted`;
+    writeRealtimeDatabase(path_meta_inst, false);
 };
 
 /******************************************************************************
@@ -120,12 +121,12 @@ function submitConsent() {
 $(document).ready(function (){
 
     //  Place University seal in consent page
-    placeImage("university-seal", UNIVERSITY_SEAL);
+    placeImage("#university-seal", UNIVERSITY_SEAL);
 
     //  Set researcher information
     //      Lead Researcher
     setResearcherInfo(
-        "lead-researcher",
+        "#lead-researcher",
         LEAD_RESEARCHER,
         LEAD_RESEARCHER_EMAIL,
         "Subset AI Assistance Experiment",
@@ -133,7 +134,7 @@ $(document).ready(function (){
     );
     //      Faculty Sponsor
     setResearcherInfo(
-        "faculty-sponsor",
+        "#faculty-sponsor",
         FACULTY_SPONSOR,
         FACULTY_SPONSOR_EMAIL,
         "Subset AI Assistance Experiment",

@@ -3,36 +3,36 @@
 /******************************************************************************
 *   FUNCTIONS
 ******************************************************************************/
-export function setText (id, title) {
-    $(`#${id}`).text(title);
+export function setText (identifier, title) {
+    $(`${identifier}`).text(title);
 };
 
-export function placeImage (id, imagePath) {
-    $(`#${id}`).prop('src', imagePath);
+export function placeImage (identifier, imagePath) {
+    $(`${identifier}`).prop('src', imagePath);
 };
 
-export function setResearcherInfo (id, name, email, subject, cc) {
-    $(`#${id} text`).text(name);
-    $(`#${id} a`).text(email);
+export function setResearcherInfo (identifier, name, email, subject, cc) {
+    $(`${identifier} text`).text(name);
+    $(`${identifier} a`).text(email);
 
     let setCC = (typeof cc === 'undefined') ? '' : `cc=${cc}&`;
     let mailto = `mailto:${email}?${setCC}Subject=${subject.replaceAll(' ', '%20')}`;
-    $(`#${id} a`).attr('href', mailto);
+    $(`${identifier} a`).attr('href', mailto);
 };
 
-export function hideContent (id) {
-    $(`#${id}`).attr("hidden", true);
+export function hideContent (identifier) {
+    $(`${identifier}`).attr("hidden", true);
 };
 
-export function displayContent (id) {
-    $(`#${id}`).attr("hidden", false);
+export function displayContent (identifier) {
+    $(`${identifier}`).attr("hidden", false);
 };
 
-export function clearContent (id) {
-    $(`#${id}`).html('');
+export function clearContent (identifier) {
+    $(`${identifier}`).html('');
 };
 
-export function loadContent (id, newContent) {
-    clearContent(id);
-    $(`#${id}`).load(newContent);
+export function loadContent (identifier, newContent) {
+    clearContent(identifier);
+    $(`${identifier}`).load(newContent);
 };

@@ -29,7 +29,6 @@ import {
 import {
     setText,
     placeImage,
-    clearContent,
     loadContent,
 } from "./utils.js";
 
@@ -78,9 +77,9 @@ var UNIVERSITY_HEADER = true;
 function displayExperimentHeader () {
     /* Display a header based on metadata parameters. */
     if (UNIVERSITY_HEADER) {
-        setText("experiment-title", EXPERIMENT_NAME);
-        placeImage("university-logo-left", UNIVERSITY_LOGO_LEFT);
-        placeImage("university-logo-right", UNIVERSITY_LOGO_RIGHT);
+        setText("#experiment-title", EXPERIMENT_NAME);
+        placeImage("#university-logo-left", UNIVERSITY_LOGO_LEFT);
+        placeImage("#university-logo-right", UNIVERSITY_LOGO_RIGHT);
     } else {
         $(`header`).hide();
     };  
@@ -170,6 +169,6 @@ $(document).ready(function (){
 
     displayExperimentHeader();
 
-    //loadContent("experiment-container", "html/1-consent.html");
-    loadContent("experiment-container", "html/2-instructions.html");
+    //loadContent("#experiment-container", "html/1-consent.html");
+    loadContent("#experiment-container", "html/2-instructions.html");
 });
