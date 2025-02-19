@@ -1,0 +1,547 @@
+<!--
+consent.html
+
+    Author      :   Helio Tejeda
+    University  :   University of California, Irvine
+    Lab         :   Modeling and Decision-Making Lab (MADLAB)
+
+Consent HTML file.
+
+This file contains all of the consent information for an experiment.
+Remember that this is a template, so this might not encompass all of
+the information you want to convey in your consent form. However, this
+is a good starting point and you should be able to edit this page as
+you need.
+
+Be sure to update the consent.js file with all of the consent
+metadata necessary. This information includes:
+    - Lead Researcher
+    - Compensation
+    - Etc
+-->
+<html>
+    <head>
+        <!--
+            Custom JavaScript - Consent Page Metadata and Functionality
+        -->
+        <script src="js/2-instructions.js" type="module">
+        </script>
+
+        <style type="text/css">
+            #instruction-container {
+                height: 100%;
+                position: relative;
+            }
+            #pagination-container {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .instruction-page {
+                height: 90%;
+                position: relative;
+                /*display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                border: 1px solid black;*/
+            }
+            /*  Instruction Page Text   */
+            .instruction-header {
+                margin-top: 0rem;
+                margin-bottom: 1rem;
+                text-align: center;
+                font-weight: bold;
+            }
+            .instruction-text {
+                margin-bottom: 1rem;
+            }
+            .instruction-footer {
+                text-align: center;
+                margin-bottom: 0rem;
+            }
+            /*  Example Experiment  */
+            .example-experiment {
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-bottom: 0rem;
+                text-align: center;
+            }
+            .example-experiment-container {
+                border: 2px solid rgb(0, 100, 164);
+                border-radius: 15px;
+                text-align: center;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            .example-experiment-option-container label {
+                width: 6%;
+                font-size: small;
+            }
+            .example-experiment-option-container label img {
+                width: 90%;
+            }
+            .example-submit-container {
+                margin-top: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            /* Page 1 */
+            #read-all-instructions-carefully {
+                color: red;
+                text-align: center;
+            }
+            /* Page 2 */
+            /* Page 3 */
+            /* Page 4 */
+            #example-options-container {
+                text-align: center;
+            }
+            #example-options-container .example-experiment-option-container label {
+                width: 12%;
+                font-size: medium;
+            }
+            /* Page 5 */
+            .option-container-3 label {
+                width: 6%;
+                font-size: small;
+            }
+            .option-container-3 label img {
+                width: 90%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Instruction Text -->
+        <div class="row" id="instruction-container">
+            <!-- Instruction Page Skeleton --> 
+            <div class="col-md-12 instruction-page">
+                <!-- Page 1 -->
+                <h3 class="instruction-header page-1" id="read-all-instructions-carefully" hidden="true">
+                    Please Read All Instructions Carefully
+                </h3>
+                <h4 class="instruction-text page-1" hidden="true">
+                    In this study you will classify noisy images with the assistance of an AI.
+                    Note that the <b>AI is NOT 100% accurate</b>.
+                    However, you should work with the AI to be as accurate as possible in your own decision.
+                    Your task is to do your best and be as accurate as possible.
+                    Some images will be easier to classify than others.
+                    <br />
+                    <br />
+                    Below is an example of interface you will use to complete the task.
+                </h4>
+                <h5 class="instruction-footer page-1" hidden="true">
+                </h5>
+                <!-- Page 2 -->
+                <h3 class="instruction-header page-2" hidden="true">
+                    Trials & Images
+                </h3>
+                <h4 class="instruction-text page-2" hidden="true">
+                    There are a total of <b>128 trials</b> in this study.
+                    Your progress is visible at the top of the interface (<text style="background-color: yellow">highlighted</text>).
+                    You must complete all trials to be compensated.
+                    <br />
+                    <br />
+                    Each trial you will be tasked with classifying a different noisy image (below trial counter).
+                    Note that some images will be easier to classify than others.
+                </h4>
+                <h5 class="instruction-footer page-2" hidden="true">
+                </h5>
+                <!-- Page 3 -->
+                <h3 class="instruction-header page-3" hidden="true">
+                    Making a Classification Selection
+                </h3>
+                <h4 class="instruction-text page-3" hidden="true">
+                    AI assistance is provided for each trial in the "AI Suggestions" box.
+                    The AI will assist you on each trial by eliminating (blacking out) certain options it believes are incorrect.
+                    To make your classification, you <b>must click on one of the options</b>.
+                    Select the <b>best</b> option available.
+                </h4>
+                <h5 class="instruction-footer page-3" hidden="true">
+                    Click on the
+                    <img src="images/icons/dog.png" style="height: 2em; background-color: yellow; border-radius: 5px">
+                    button to proceed to the next page.
+                </h5>
+                <!-- Page 4 -->
+                <h3 class="instruction-header page-4" hidden="true">
+                    Category Options
+                </h3>
+                <h4 class="instruction-text page-4" hidden="true">
+                    Each image you will classify belongs to 1 of 16 possible categories.
+                    All of the categories along with their text descriptions are displayed below.
+                    <br />
+                    <br />
+                    <div class="container" id="example-options-container">
+                    </div>
+                    <br />
+                    Remember that not all category options will be displayed every trial.
+                    Therefore, you must click the single <b>best</b> option available to make your decision.
+                    You will only be allowed to make a single classification decision per image.
+                    However, you are allowed to change your selection <b>before</b> submitting your response.
+                </h4>
+                <h5 class="instruction-footer page-4" hidden="true">
+                </h5>
+                <!-- Page 5 -->
+                <h3 class="instruction-header page-5" hidden="true">
+                    AI Suggestions & Ordering
+                </h3>
+                <h4 class="instruction-text page-5" hidden="true">
+                    Each trial, the AI will assist you by presenting its top category predictions for the given image.
+                    You will be presented with either 2, 4, 8, or 16 category options.
+                    You must select the <b>best</b> option available to you.
+                    Below is an example of the AI presenting you with its top 4 prediction options for some image (not displayed).
+                    <br />
+                    <br />
+                    <div class="container" style="text-align: center; margin-top: 1rem; margin-bottom: 2rem; display: block; border: 2px solid rgb(0, 100, 164); border-radius: 15px;">
+                        <div class="row"><div class="col-12"><h6><b>AI Suggestions</b></h6><h6>Select the Best Option</h6></div>
+                        </div>
+                        <div class="row alphabetical" id="example-options-container-example-alphabetical" hidden="true">
+                            <div class="col-12" id="example-options-alphabetical">
+                                <div class="container" style="border-radius: 0.2rem; height: unset;">
+                                    <div class="row option-container-3" style="display: flex; justify-content: space-between;">
+                                        <label data-toggle="tooltip" data-placement="top" title="airplane" for="airplane" style="border-radius: 5px">
+                                            <br /><img src="images/icons/airplane.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bear" for="bear" style="border-radius: 5px">
+                                            <text>bear</text><br /><img src="images/icons/bear.png" style="background-color: white; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bicycle" for="bicycle" style="border-radius: 5px">
+                                            <br /><img src="images/icons/bicycle.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bird" for="bird" style="border-radius: 5px">
+                                            <text>bird</text><br /><img src="images/icons/bird.png" style="background-color: white; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="boat" for="boat" style="border-radius: 5px">
+                                            <br /><img src="images/icons/boat.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bottle" for="bottle" style="border-radius: 5px">
+                                            <br /><img src="images/icons/bottle.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="car" for="car" style="border-radius: 5px">
+                                            <br /><img src="images/icons/car.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="cat" for="cat" style="border-radius: 5px">
+                                            <br /><img src="images/icons/cat.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="chair" for="chair" style="border-radius: 5px">
+                                            <br /><img src="images/icons/chair.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="clock" for="clock" style="border-radius: 5px">
+                                            <br /><img src="images/icons/clock.png" style="background-color: black; border-radius: 5px">
+                                        </label><label data-toggle="tooltip" data-placement="top" title="dog" for="dog" style="border-radius: 5px">
+                                            <text>dog</text><br /><img src="images/icons/dog.png" style="background-color: white; border-radius: 5px">
+                                        </label><label data-toggle="tooltip" data-placement="top" title="elephant" for="elephant" style="border-radius: 5px">
+                                            <text>elephant</text><br /><img src="images/icons/elephant.png" style="background-color: white; border-radius: 5px">
+                                        </label><label data-toggle="tooltip" data-placement="top" title="keyboard" for="keyboard" style="border-radius: 5px">
+                                            <br /><img src="images/icons/keyboard.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="knife" for="knife" style="border-radius: 5px">
+                                            <br /><img src="images/icons/knife.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="oven" for="oven" style="border-radius: 5px">
+                                            <br /><img src="images/icons/oven.png" style="background-color: black; border-radius: 5px">
+                                        </label><label data-toggle="tooltip" data-placement="top" title="truck" for="truck" style="border-radius: 5px">
+                                            <br /><img src="images/icons/truck.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row rank" id="example-options-container-example-rank" hidden="true">
+                            <div class="col-12" id="example-options-rank">
+                                <div class="container" style="border-radius: 0.2rem; height: unset;">
+                                    <div class="row option-container-3" style="display: flex; justify-content: space-between;">
+                                        <label data-toggle="tooltip" data-placement="top" title="bird" for="bird" style="border-radius: 5px">
+                                            <text>bird</text><br /><img src="images/icons/bird.png" style="background-color: white; border-radius: 5px"><br />1
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="dog" for="dog" style="border-radius: 5px">
+                                            <text>dog</text><br /><img src="images/icons/dog.png" style="background-color: white; border-radius: 5px"><br />2
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="elephant" for="elephant" style="border-radius: 5px">
+                                            <text>elephant</text><br /><img src="images/icons/elephant.png" style="background-color: white; border-radius: 5px"><br />3
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bear" for="bear" style="border-radius: 5px">
+                                            <text>bear</text><br /><img src="images/icons/bear.png" style="background-color: white; border-radius: 5px"><br />4
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="cat" for="cat" style="border-radius: 5px">
+                                            <br /><img src="images/icons/cat.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="boat" for="boat" style="border-radius: 5px">
+                                            <br /><img src="images/icons/boat.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bottle" for="bottle" style="border-radius: 5px">
+                                            <br /><img src="images/icons/bottle.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="bicycle" for="bicycle" style="border-radius: 5px">
+                                            <br /><img src="images/icons/bicycle.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="keyboard" for="keyboard" style="border-radius: 5px">
+                                            <br /><img src="images/icons/keyboard.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="chair" for="chair" style="border-radius: 5px">
+                                            <br /><img src="images/icons/chair.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="truck" for="truck" style="border-radius: 5px">
+                                            <br /><img src="images/icons/truck.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="clock" for="clock" style="border-radius: 5px">
+                                            <br /><img src="images/icons/clock.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="oven" for="oven" style="border-radius: 5px">
+                                            <br /><img src="images/icons/oven.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="knife" for="knife" style="border-radius: 5px">
+                                            <br /><img src="images/icons/knife.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="airplane" for="airplane" style="border-radius: 5px">
+                                            <br /><img src="images/icons/airplane.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                        <label data-toggle="tooltip" data-placement="top" title="car" for="car" style="border-radius: 5px">
+                                            <br /><img src="images/icons/car.png" style="background-color: black; border-radius: 5px">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row rank" style="margin-bottom: 0rem;" hidden="true">
+                            <div class="col-12" style="display: flex; justify-content: space-between;">
+                                <h6 style="text-align: left" id="most-likely">Most Likely</h6>
+                                <hr style="width: 75%; border-top: 2px solid black;"/>
+                                <h6 style="text-align: right" id="least-likely">Least Likely</h6>
+                            </div>
+                        </div>
+                    </div>
+                    The options displayed are the AI's top 4 predictions for some image (not displayed).
+                    <text class="alphabetical" id="alphabetical" style="margin-top: 2rem;" hidden="true">
+                        However, there is no significance to the ordering of the options.
+                        The options are simply displayed in alphabetical order (from left to right).
+                    </text>
+                    <text class="rank" id="rank" style="margin-top: 2rem;" hidden="true">
+                        They are shown in <b>rank order</b> (most likely to least likely) based on the AI's prediction values.
+                        The most likely category (highest predicted class by the AI) is on the far left, labeled "1".
+                        As you move from left to right, the AI's prediction value for a given class decreases.
+                        The least likely category (lowest predicted class by the AI) is on the far right, labeled "16".
+                    </text>
+                    <br />
+                    <br />
+                    You will receive AI advice in this format for the entire study.
+                </h4>
+                <h5 class="instruction-footer page-5" hidden="true">
+                </h5>
+                <!-- Page 6 -->
+                <h3 class="instruction-header page-6" hidden="true">
+                    Submitting Your Classification
+                </h3>
+                <h4 class="instruction-text page-6" hidden="true">
+                    Once you have decided and clicked on a category, you must submit your response.
+                    Click on:
+                    <p style="margin-left: 1rem; margin-top: 0.5rem;">
+                        <button class="btn btn-success btn-sm" style="width: auto;">
+                            Agree
+                        </button>
+                        - the correct classification <b>is in</b> the options presented
+                    </p>
+                    <p style="margin-left: 1rem; margin-top: 0.5rem;">
+                        <button class="btn btn-danger btn-sm" style="width: auto;">
+                            Disagree
+                        </button>
+                        - the options presented <b>do not</b> contain the correct classification
+                    </p>
+                    
+                    
+                </h4>
+                <h5 class="instruction-footer page-6" hidden="true">
+                    <img src="images/icons/dog.png" style="height: 2em; background-color: white; border-radius: 5px">
+                    button is already selected here. Click on
+                    <button class="btn btn-success btn-sm" style="width: auto;">
+                        Agree
+                    </button>
+                    in the example to proceed to the next page.
+                </h5>
+                <!-- Page 7 -->
+                <h3 class="instruction-header page-7" hidden="true">
+                    Give it a Try
+                </h3>
+                <h4 class="instruction-text page-7" hidden="true">
+                    <b>Remember</b>, you must select one of the options presented to you.
+                    If you believe the correct option was presented to you, make your selection and submit your response using the
+                    <button class="btn btn-success btn-sm" style="width: auto">
+                        Agree
+                    </button>
+                    button.
+                    However, if you believe the AI eliminated the correct option, make a selection and submit your response using the
+                    <button class="btn btn-danger btn-sm" style="width: auto">
+                        Disagree
+                    </button>
+                    button.
+                </h4>
+                <h5 class="instruction-footer page-7" hidden="true">
+                </h5>
+                <!-- Page New
+                <h3 class="instruction-header page-" hidden="true">
+                </h3>
+                <h4 class="instruction-text page-" hidden="true">
+                </h4>
+                <h5 class="instruction-footer page-" hidden="true">
+                </h5>-->
+                <!-- Experiment Example -->
+                <div class="row example-experiment">
+                    <div class="col-12 example-experiment-container">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>
+                                    <span id="example-trial-count">
+                                        Trial 54 of 128
+                                    </span>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" id="sample-image">
+                                <img src="images/instructions/n02109525_23299.png" style="border: 2px solid rgb(0, 100, 164); border-radius: 5px;"/>
+                            </div>
+                        </div>
+                        <div class="container example-option-container" style="margin-top: 10px; display: block; border: 2px solid rgb(0, 100, 164); border-radius: 15px;">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6><b>AI Suggestions</b></h6>
+                                    <h6>Select the Best Option</h6>
+                                </div>
+                            </div>
+                            <div class="row" id="example-option-button-container">
+                                <div class="col-12">
+                                    <div class="container" style="border-radius: 0.2rem; height: unset;">
+                                        <div class="row example-experiment-option-container" style="display: flex; justify-content: space-between;">
+                                            <label data-toggle="tooltip" data-placement="top" title="airplane" for="airplane" style="border-radius: 5px">
+                                                <text>airplane</text>
+                                                <br />
+                                                <img src="images/icons/airplane.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="bear" for="bear" style="border-radius: 5px">
+                                                <text>bear</text>
+                                                <br />
+                                                <img src="images/icons/bear.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="bicycle" for="bicycle" style="border-radius: 5px">
+                                                <text>bicycle</text>
+                                                <br />
+                                                <img src="images/icons/bicycle.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="bird" for="bird" style="border-radius: 5px">
+                                                <text>bird</text>
+                                                <br />
+                                                <img src="images/icons/bird.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="boat" for="boat" style="border-radius: 5px">
+                                                <text>boat</text>
+                                                <br />
+                                                <img src="images/icons/boat.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="bottle" for="bottle" style="border-radius: 5px">
+                                                <text>bottle</text>
+                                                <br />
+                                                <img src="images/icons/bottle.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="car" for="car" style="border-radius: 5px">
+                                                <text>car</text>
+                                                <br />
+                                                <img src="images/icons/car.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="cat" for="cat" style="border-radius: 5px">
+                                                <text>cat</text>
+                                                <br />
+                                                <img src="images/icons/cat.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="chair" for="chair" style="border-radius: 5px">
+                                                <text>chair</text>
+                                                <br />
+                                                <img src="images/icons/chair.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="clock" for="clock" style="border-radius: 5px">
+                                                <text>clock</text>
+                                                <br />
+                                                <img src="images/icons/clock.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="dog" for="dog" style="border-radius: 5px">
+                                                <text>dog</text>
+                                                <br />
+                                                <img src="images/icons/dog.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="elephant" for="elephant" style="border-radius: 5px">
+                                                <text>elephant</text>
+                                                <br />
+                                                <img src="images/icons/elephant.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="keyboard" for="keyboard" style="border-radius: 5px">
+                                                <text>keyboard</text>
+                                                <br />
+                                                <img src="images/icons/keyboard.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="knife" for="knife" style="border-radius: 5px">
+                                                <text>knife</text>
+                                                <br />
+                                                <img src="images/icons/knife.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="oven" for="oven" style="border-radius: 5px">
+                                                <text>oven</text>
+                                                <br />
+                                                <img src="images/icons/oven.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                    
+                                            <label data-toggle="tooltip" data-placement="top" title="truck" for="truck" style="border-radius: 5px">
+                                                <text>truck</text>
+                                                <br />
+                                                <img src="images/icons/truck.png" style="background-color: white; border-radius: 5px">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row example-submit-container">
+                            <div class="col-6 text-center" id="example-submit-agree" style="padding-top: 5px; padding-bottom: 5px">
+                                <button name="low" value="1" type="submit" class="btn btn-success btn-sm" style="width: 100%" disabled>
+                                    Agree
+                                </button>
+                            </div>
+                            <div class="col-6 text-center" id="example-submit-disagree" style="padding-top: 5px; padding-bottom: 5px">
+                                <button name="low" value="1" type="submit" class="btn btn-danger btn-sm" style="width: 100%" disabled>
+                                    Disagree
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div id="pagination-container">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled" id="previous-button">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item" id="next-button">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </body>
+</html>
