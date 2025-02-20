@@ -36,7 +36,7 @@ import {
 *   VARIABLES
 ******************************************************************************/
 // EXPERIMENT METADATA
-export var DEBUG = false;
+export var DEBUG = true;
 export var BETWEEN_SUBJECT_ORDER_CONDITIONS = 2;
 export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 2;
 export var ORDER_CONDITION;
@@ -71,6 +71,11 @@ export var UNIVERSITY_LOGO_RIGHT = "images/BCeater-left.png";
 
 // DISPLAY SETTINGS
 var UNIVERSITY_HEADER = true;
+
+// PROLIFIC REDIRECTS (use a different redirect each time you run experiment)
+export var PROLIFIC_REDIRECT = [
+
+];
 
 
 /******************************************************************************
@@ -175,7 +180,8 @@ $(document).ready(function (){
         //loadContent("#experiment-container", "html/1-consent.html");
         //loadContent("#experiment-container", "html/2-instructions.html");
         //loadContent("#experiment-container", "html/3-integrity-pledge.html");
-        loadContent("#experiment-container", "html/4-experiment.html");
+        //loadContent("#experiment-container", "html/4-experiment.html");
+        loadContent("#experiment-container", "html/5-complete.html");
     } else {
         loadContent("#experiment-container", "html/1-consent.html"); 
     }
