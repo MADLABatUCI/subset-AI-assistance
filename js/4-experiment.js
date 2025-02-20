@@ -14,7 +14,6 @@ Experiment Page METADATA file.
 //  Import functions and variables from the Firebase Psych library
 import {
     writeRealtimeDatabase,
-    writeURLParameters,
     blockRandomization,
     finalizeBlockRandomization,
     firebaseUserId
@@ -23,8 +22,6 @@ import {
 //  Import functions and variables from experiment Metadata file
 import {
     DEBUG,
-    BETWEEN_SUBJECT_ORDER_CONDITIONS,
-    BETWEEN_SUBJECT_MODEL_CONDITIONS,
     ORDER_CONDITION,
     ORDER_CONDITION_STR,
     MODEL_CONDITION,
@@ -43,28 +40,6 @@ import {
     displayContent,
     loadContent,
 } from "./utils.js";
-
-
-// Sample Inputs for Experiment
-let sampleData = {
-    imageName: 'n01860187_7878',
-    noiseType: 'phase',
-    noiseLevel: 0,
-    trueLabel: 'bird',
-    modelArch: 'vgg19',
-    modelPerfLvlStr: 'horrible',
-    modelPerfLvlInt: -2,
-    modelMaxPredStr: 'bird',
-    modelMaxPredFloat: 0.9999999269505158,
-    correct: 1,
-    modelRankOfTrueLabel: 1,
-    categories: ['airplane', 'bear', 'bicycle', 'bird', 'boat', 'bottle', 'car', 'cat', 'chair', 'clock', 'dog', 'elephant', 'keyboard', 'knife', 'oven', 'truck'],
-    modelAllPredFloat: [7.517744758518959e-13, 7.220553871788471e-09, 5.4689732921935374e-11, 0.9999999269505158, 1.637565831545673e-09, 9.078614813158603e-10, 4.685767810541713e-13, 2.237283887463876e-09, 2.756505419714212e-11, 7.021132478010693e-12, 4.4556572084138055e-08, 1.6346891421948648e-08, 3.14710936339838e-11, 5.626046230954865e-12, 5.7693154138213856e-12, 9.3929839761295e-12],
-    modelAllRankInt: [15, 4, 8, 1, 6, 7, 16, 5, 10, 12, 2, 3, 9, 14, 13, 11],
-    categoriesOrdered: ['bird', 'dog', 'elephant', 'bear', 'cat', 'boat', 'bottle', 'bicycle', 'keyboard', 'chair', 'truck', 'clock', 'oven', 'knife', 'airplane', 'car'],
-    modelAllPredFloatOrdered: [0.9999999269505158, 4.4556572084138055e-08, 1.6346891421948648e-08, 7.220553871788471e-09, 2.237283887463876e-09, 1.637565831545673e-09, 9.078614813158603e-10, 5.4689732921935374e-11, 3.14710936339838e-11, 2.756505419714212e-11, 9.3929839761295e-12, 7.021132478010693e-12, 5.7693154138213856e-12, 5.626046230954865e-12, 7.517744758518959e-13, 4.685767810541713e-13],
-    modelAllRankIntOrdered: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-};
 
 
 /******************************************************************************
@@ -94,21 +69,6 @@ let TRIAL_DATA;
 
 //      Element Variables
 let optionContainer = $(`#trial-options-container-${ORDER_CONDITION_STR} .options-container`);
-
-
-/******************************************************************************
-    DEBUG
-
-        For now we are in DEBUG mode and will only present a single question.
-******************************************************************************/
-//  Determine the mode and questions
-if (DEBUG){
-    TOTAL_TRIALS = 5;
-    OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
-} else {
-    TOTAL_TRIALS = 5;
-    OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
-}
 
 
 /******************************************************************************
@@ -384,7 +344,7 @@ function nextTask() {
         // Increment the current task number
         CURRENT_TRIAL++;
         // Display the next trial
-        presentTrial();
+        TRIAL_DATA = presentTrial();
     };
 };
 
@@ -418,6 +378,68 @@ function allTasksDone() {
     loadContent("#experiment-container", COMPLETE_FILE);
 };
 
+//  Sampling Function
+async function experimentSetUp2() {
+    let numNoiseLevels = 4; // Total number of Noise Levels
+    let numBins = 4; // Total number of confidence bins
+    let numImages = 32; // Total number of questions per category
+
+    let startIndex = 0;  // Start index for lookup
+
+    let noiseLevelArray = [110, 125, 140, 155];
+    // Looping over categories
+    for (let noiseLevel = 0; noiseLevel < numNoiseLevels; noiseLevel++) {
+        for (let imgNum = 0; imgNum < numImages; imgNum++) {
+            // Create a name for this particular combination of noiseLevel and confidence bin
+            let lookupTable = `Table_${ORDER_CONDITION_STR}_${MODEL_CONDITION}_${noiseLevelArray[noiseLevel]}_${imgNum.toString().padStart(2, '0')}`;
+            // Append lookup table name to LOOKUP_TABLES var (needed for finalization)
+            EXPERIMENT_CONDITION_TABLE.push(lookupTable);
+            let numDraws = 1; // we sample 1 view option per image per noise level (to create 128 images total)
+
+            // NOTE:
+            let assignedQuestion = await blockRandomization(EXPERIMENT_DATABASE_NAME, lookupTable, DISPLAY_OPTIONS,
+                MAX_COMPLETION_TIME, numDraws); // the await keyword is mandatory
+            // Convert the assignedQuestion to a number
+            console.log(assignedQuestion);
+            let thisAssignedkSubset = parseInt(assignedQuestion);
+            //console.log(optionsToShow);
+            //  Options to show are either [2, 4, 8, 16]
+            //      optionsToShow will be either [0, 1, 2, 3]
+            //      Therefore this gives us
+            //    thisAssignedkSubset   |   thisAssignedkSubsetNumber
+            //                      0   |   2**(0 + 1) = 2
+            //                      1   |   2**(1 + 1) = 4
+            //                      2   |   2**(2 + 1) = 8
+            //                      3   |   2**(3 + 1) = 16
+            let thisAssignedkSubsetNumber = 2**(thisAssignedkSubset + 1);
+
+            // Get the question that will be shown to the participant
+            let imageToShow = imgNum;
+
+            OPTIONS_TO_SHOW.push(thisAssignedkSubsetNumber);
+            IMAGE_TRIALS.push(startIndex + imageToShow);
+
+            if (DEBUG) {
+                console.log(`For Noise Level = ${noiseLevel} we assigned image #${startIndex + imageToShow} and will show ${thisAssignedkSubsetNumber} options with assignment`);
+            };
+            $('#expCountdown').text(TOTAL_TRIALS - IMAGE_TRIALS.length);
+        };
+        console.log("\n\n\n");
+        startIndex += numImages;
+    };
+};
+
+
+/******************************************************************************
+    DEBUG
+
+        For now we are in DEBUG mode and will only present a single question.
+******************************************************************************/
+//  Determine the mode and questions
+if (DEBUG){
+    TOTAL_TRIALS = 5;
+    OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
+};
 
 /******************************************************************************
     ORDERED FUNCTIONALITY
@@ -444,80 +466,15 @@ if (DEBUG) {
     console.log("Trial Questions");
     console.log(trialQuestions);
     EXPERIMENT_TRIALS = trialQuestions;
-} else {
-    EXPERIMENT_TRIALS = trialQuestions;
-};
-
-//  Sampling Function
-async function experimentSetUp() {
-    let numCategories = 1; // Total number of categories
-    let numBins = 4; // Total number of confidence bins
-    let numQuestions = 35; // Total number of questions per category
-
-    let startIndex = 0;  // Start index for lookup
-
-    // Looping over categories
-    for (let category = 0; category < numCategories; category++) {
-    
-        // Loop over confidence bins
-        for (let cbin = 0; cbin < numBins; cbin++) {
-
-
-            // Create a name for this particular combination of category and confidence bin
-            let lookupTable = 'Table_' + category + '_' + cbin;
-            // Append lookup table name to LOOKUP_TABLES var (needed for finalization)
-            EXPERIMENT_CONDITION_TABLE.push(lookupTable);
-            let numDraws = 10; // we sample TEN question per confidence bin (to create 40 questions total)
-
-            let numQuestionsPerNoiseLevel = 32;    // The FILE we use has 84 questions per confidence bin
-            //if (cbin==0) numQuestionsPerNoiseLevel = 5; // we have 5 questions per category in the first confidence bin (0.2-0.4)
-            //if (cbin>0) numQuestionsPerNoiseLevel = 10; // we have 10 questions per category in the remaining confidence bins (0.4-0.6; 0.6-0.8; 0.8-1.0)
-
-            // NOTE:
-            //  The condition count has now been increased form numQuestionsPerNoiseLevel to numQuestionsPerNoiseLevel * EXPLANATION_OPTIONS
-            //  This means that if there are 10 questions in a bin, there are a total of 40 conditions (each questions has 4 possible explanation options)
-            //  We will separate the questions and the explanation based on the condition assigned between 0-(numQuestionsPerNoiseLevel*EXPLANATION_OPTIONS - 1)
-            let assignedQuestion = await blockRandomization(EXPERIMENT_DATABASE_NAME, lookupTable, numQuestionsPerNoiseLevel*EXPLANATION_OPTIONS,
-                MAX_COMPLETION_TIME, numDraws); // the await keyword is mandatory
-            // Convert the assignedQuestion to a number
-            //console.log(assignedQuestion);
-            for (let thisQ = 0; thisQ < assignedQuestion.length; thisQ++) {
-                //console.log(thisQ + ") " + assignedQuestion[thisQ]);
-                let thisAssignedQuestion = parseInt(assignedQuestion[thisQ]);
-
-                // NOTE:
-                //  thisAssignedQuestion will be broken down into two different numbers to determine the question and explanation
-                //
-                //  Explanation = thisAssignedQuestion % EXPLANATION_OPTIONS
-                //
-                //  Question    = (thisAssignedQuestion - Explanation) / EXPLANATION_OPTIONS
-
-                // Get the explanation that will be shown to the participant
-                let optionsToShow = thisAssignedQuestion % EXPLANATION_OPTIONS;
-
-                // Get the question that will be shown to the participant
-                let imageToShow = (thisAssignedQuestion - optionsToShow) / EXPLANATION_OPTIONS;
-
-                // Now, go find which question this is from the list of questions and add to the list for this participant
-                // The Topic_number and bin_wide_number are all in order
-                // We just need to keep track of how far along we are and keep adding to our start index
-                OPTIONS_TO_SHOW.push(optionsToShow);
-                IMAGE_TRIAL.push(startIndex + imageToShow);
-
-                //if (DEBUG_EXPERIMENT_CONCURRENT){
-                console.log( "For category " + category + " and confidence bin " + cbin + " we assigned question #" + imageToShow + " along with explanation #" + (optionsToShow + 1) + " from that bin and category");
-                //};
-
-                $('#expCountdown').text(TOTAL_TRIALS - IMAGE_TRIAL.length);
-            };
-            startIndex += numQuestionsPerNoiseLevel;
-        };
-
-    };
 };
 
 //  Call Sampling function, but make suer we wait until it is finished to continue (await)
-//await experimentSetUp();
+await experimentSetUp2();
+hideContent(`#mainexperiment-container-loading-page`);
+displayContent(`#trial-container`);
+console.log("COMPLETED");
+console.log(IMAGE_TRIALS);
+console.log(OPTIONS_TO_SHOW);
 
 /******************************************************************************
     RUN ON PAGE LOAD
@@ -529,6 +486,14 @@ $(document).ready(function (){
     // Display Option Container based on EXP Condition
     displayContent(`.${ORDER_CONDITION_STR}`);
     CURRENT_TRIAL = 1;
+
+    //  Shuffle trials for this experiment!
+    shuffle(IMAGE_TRIALS, OPTIONS_TO_SHOW);
+    EXPERIMENT_TRIALS = IMAGE_TRIALS.slice(0, TOTAL_TRIALS).map(i => trialQuestions[i]);
+    //if (DEBUG_EXPERIMENT_CONCURRENT){
+    console.log("Trials\n", IMAGE_TRIALS);
+    console.log("Explanation\n", OPTIONS_TO_SHOW);
+
     //  Present the first image
     TRIAL_DATA = presentTrial();
     console.log("TRIAL DATA IS :", TRIAL_DATA);

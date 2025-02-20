@@ -36,8 +36,6 @@ Experiment HTML file.
                 /*border: 5px solid rgb(0, 100, 164);*/
                 border-radius: 15px;
             }
-            #message-to-player {
-            }
             .options-container {
                 display: flex;
                 justify-content: space-between;
@@ -58,8 +56,15 @@ Experiment HTML file.
         </style>
     </head>
     <body>
+        <div class="col-12 justify-content-center" id="mainexperiment-container-loading-page">
+            <h3 style="text-align: center">
+                Experiment Loading...
+                <br />
+                <text id="expCountdown"></text>
+            </h3>
+        </div>
         <!-- Experiment -->
-        <div class="row" id="trial-container">
+        <div class="row" id="trial-container" hidden>
             <div class="col-12" id="trial-container-column">
                 <div class="container trial-progress-container">
                     <div class="row">
