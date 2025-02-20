@@ -173,6 +173,8 @@ async function loadInstructionHTML () {
             };
         };
     };
+    generatePagination();
+    displayInstructionPage(CURRENT_INSTRUCTION_PAGE, true);
 };
 
 //  Display Functions (and display functionality)
@@ -525,11 +527,9 @@ await loadInstructionHTML();
 $(document).ready(function (){
     //  Load instruction page
     //      NOTE: if you are debugging, load the page you want to work on
-    CURRENT_INSTRUCTION_PAGE = 1;
-    generatePagination();
-    displayInstructionPage(CURRENT_INSTRUCTION_PAGE, true);
-
-    
+    if (DEBUG) {
+        CURRENT_INSTRUCTION_PAGE = 4;
+    };
 
     //  Activate event listeners for button clicks
     $("#previous-button").click(previousButton);
