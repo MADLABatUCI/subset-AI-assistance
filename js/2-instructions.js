@@ -50,7 +50,7 @@ import {
 //  Database Path
 var INSTRUCTIONS_DB_PATH = `${EXPERIMENT_DATABASE_NAME}/participantData/${firebaseUserId}/instructionData`;
 //  Instruction Metadata
-let TOTAL_INSTRUCTION_PAGES = 7;
+let TOTAL_INSTRUCTION_PAGES = 6;
 let CURRENT_INSTRUCTION_PAGE = 1;
 //  
 let INSTRUCTION_START_TIME;
@@ -130,6 +130,7 @@ function highlightOption (option, color, loc = ".example-experiment-option-conta
 
 //  Display Functions (and display functionality)
 function determineActionForInstructionPage () {
+    $(`.instruction-page`).scrollTop(0);
     //  Load example experiment from copies
     //      This allows us to make modifications for each instruction page more easily
     $(`.example-experiment`).html(EXPERIMENT_EXAMPLE_COPIES[CURRENT_INSTRUCTION_PAGE-1]);
@@ -170,21 +171,6 @@ function determineActionForInstructionPage () {
         hideContent(".example-experiment-container");
         displayContent(`.${ORDER_CONDITION_STR}`);
     } else if (CURRENT_INSTRUCTION_PAGE == 6) {
-        blackOutExamples();
-        highlightOption("dog", "#007bff");
-        nextButtonActive = false;
-        disableButton("next-button");
-        modifyOpacity("#example-trial-count", 0.25);
-        modifyOpacity("#sample-image", 0.25);
-        modifyOpacity(".example-option-container", 0.25);
-        $("#example-submit-agree button").prop("disabled", false);
-        $("#example-submit-disagree button").prop("disabled", false);
-        $(`#example-submit-agree button`).click(
-            function () {
-                nextButtonActive = true;
-                enableButton("next-button");
-        });
-    } else if (CURRENT_INSTRUCTION_PAGE == 7) {
         nextButtonActive = false;
         disableButton("next-button");
         placeImage("#sample-image img", "images/instructions/n02504458_4583.png");

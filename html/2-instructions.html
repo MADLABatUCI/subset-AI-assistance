@@ -40,11 +40,12 @@ metadata necessary. This information includes:
             }
             .instruction-page {
                 height: 90%;
-                position: relative;
-                /*display: flex;
+                /*position: relative;*/
+                overflow: auto;
+                display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                border: 1px solid black;*/
+                /*border: 1px solid black;*/
             }
             /*  Instruction Page Text   */
             .instruction-header {
@@ -63,10 +64,10 @@ metadata necessary. This information includes:
             /*  Example Experiment  */
             .example-experiment {
                 width: 100%;
-                position: absolute;
+                /*position: absolute;
                 bottom: 0;
                 left: 50%;
-                transform: translateX(-50%);
+                transform: translateX(-50%);*/
                 margin-bottom: 0rem;
                 text-align: center;
             }
@@ -130,7 +131,7 @@ metadata necessary. This information includes:
                     Some images will be easier to classify than others.
                     <br />
                     <br />
-                    Below is an example of interface you will use to complete the task.
+                    Below is an example of the interface you will use to complete the task.
                 </h4>
                 <h5 class="instruction-footer page-1" hidden="true">
                 </h5>
@@ -176,10 +177,12 @@ metadata necessary. This information includes:
                     <div class="container" id="example-options-container">
                     </div>
                     <br />
-                    Remember that not all category options will be displayed every trial.
-                    Therefore, you must click the single <b>best</b> option available to make your decision.
+                    <b>Not all category options will be displayed every trial.</b>
+                    <br />
+                    <br />
+                    Therefore, you must click the single best option available to make your decision.
                     You will only be allowed to make a single classification decision per image.
-                    However, you are allowed to change your selection <b>before</b> submitting your response.
+                    However, you are allowed to change your selection before submitting your response.
                 </h4>
                 <h5 class="instruction-footer page-4" hidden="true">
                 </h5>
@@ -313,72 +316,38 @@ metadata necessary. This information includes:
                             </div>
                         </div>
                     </div>
-                    The options displayed are the AI's top 4 predictions for some image (not displayed).
                     <text class="alphabetical" id="alphabetical" style="margin-top: 2rem;" hidden="true">
-                        However, there is no significance to the ordering of the options.
+                        There is no significance to the ordering of the options.
                         The options are simply displayed in alphabetical order (from left to right).
                     </text>
                     <text class="rank" id="rank" style="margin-top: 2rem;" hidden="true">
-                        They are shown in <b>rank order</b> (most likely to least likely) based on the AI's prediction values.
+                        They are shown in <b>rank order</b> (most likely to least likely) based on the AI's confidence.
                         The most likely category (highest predicted class by the AI) is on the far left, labeled "1".
-                        As you move from left to right, the AI's prediction value for a given class decreases.
+                        As you move from left to right, the AI's confidence for a given class decreases.
                         The least likely category (lowest predicted class by the AI) is on the far right, labeled "16".
                     </text>
-                    <br />
-                    <br />
-                    You will receive AI advice in this format for the entire study.
                 </h4>
                 <h5 class="instruction-footer page-5" hidden="true">
                 </h5>
                 <!-- Page 6 -->
                 <h3 class="instruction-header page-6" hidden="true">
-                    Submitting Your Classification
+                    Submitting your Classification
                 </h3>
                 <h4 class="instruction-text page-6" hidden="true">
-                    Once you have decided and clicked on a category, you must submit your response.
-                    Click on:
-                    <p style="margin-left: 1rem; margin-top: 0.5rem;">
-                        <button class="btn btn-success btn-sm" style="width: auto;">
-                            Agree
-                        </button>
-                        - the correct classification <b>is in</b> the options presented
-                    </p>
-                    <p style="margin-left: 1rem; margin-top: 0.5rem;">
-                        <button class="btn btn-danger btn-sm" style="width: auto;">
-                            Disagree
-                        </button>
-                        - the options presented <b>do not</b> contain the correct classification
-                    </p>
-                    
-                    
-                </h4>
-                <h5 class="instruction-footer page-6" hidden="true">
-                    <img src="images/icons/dog.png" style="height: 2em; background-color: white; border-radius: 5px">
-                    button is already selected here. Click on
-                    <button class="btn btn-success btn-sm" style="width: auto;">
-                        Agree
-                    </button>
-                    in the example to proceed to the next page.
-                </h5>
-                <!-- Page 7 -->
-                <h3 class="instruction-header page-7" hidden="true">
-                    Give it a Try
-                </h3>
-                <h4 class="instruction-text page-7" hidden="true">
-                    <b>Remember</b>, you must select one of the options presented to you.
                     If you believe the correct option was presented to you, make your selection and submit your response using the
-                    <button class="btn btn-success btn-sm" style="width: auto">
-                        Agree
+                    <button class="btn btn-primary btn-sm" style="width: auto">
+                        Yes
                     </button>
                     button.
                     However, if you believe the AI eliminated the correct option, make a selection and submit your response using the
-                    <button class="btn btn-danger btn-sm" style="width: auto">
-                        Disagree
+                    <button class="btn btn-dark btn-sm" style="width: auto">
+                        No
                     </button>
                     button.
                 </h4>
-                <h5 class="instruction-footer page-7" hidden="true">
-                </h5>
+                <h3 class="instruction-footer page-6" hidden="true">
+                    Give it a Try
+                </h3>
                 <!-- Page New
                 <h3 class="instruction-header page-" hidden="true">
                 </h3>
@@ -406,8 +375,7 @@ metadata necessary. This information includes:
                         <div class="container example-option-container" style="margin-top: 10px; display: block; border: 2px solid rgb(0, 100, 164); border-radius: 15px;">
                             <div class="row">
                                 <div class="col-12">
-                                    <h6><b>AI Suggestions</b></h6>
-                                    <h6>Select the Best Option</h6>
+                                    <h6><b>AI Suggestions</b>: Select the Best Option</h6>
                                 </div>
                             </div>
                             <div class="row" id="example-option-button-container">
@@ -514,16 +482,21 @@ metadata necessary. This information includes:
                                 </div>
                             </div>
                         </div>
-                        <div class="row example-submit-container">
-                            <div class="col-6 text-center" id="example-submit-agree" style="padding-top: 5px; padding-bottom: 5px">
-                                <button name="low" value="1" type="submit" class="btn btn-success btn-sm" style="width: 100%" disabled>
-                                    Agree
-                                </button>
-                            </div>
-                            <div class="col-6 text-center" id="example-submit-disagree" style="padding-top: 5px; padding-bottom: 5px">
-                                <button name="low" value="1" type="submit" class="btn btn-danger btn-sm" style="width: 100%" disabled>
-                                    Disagree
-                                </button>
+                        <div class="container example-submit-container" style="margin-top: 10px; display: block; border: 2px solid rgb(0, 100, 164); border-radius: 15px;">
+                            <div class="row">
+                                <div class="col-12">
+                                    Was the correct classification in the options presented?
+                                </div>
+                                <div class="col-6 text-center" id="example-submit-agree" style="padding-top: 5px; padding-bottom: 5px">
+                                    <button name="low" value="1" type="submit" class="btn btn-primary btn-sm" style="width: 100%" disabled>
+                                        Yes
+                                    </button>
+                                </div>
+                                <div class="col-6 text-center" id="example-submit-disagree" style="padding-top: 5px; padding-bottom: 5px">
+                                    <button name="low" value="1" type="submit" class="btn btn-dark btn-sm" style="width: 100%" disabled>
+                                        No
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
