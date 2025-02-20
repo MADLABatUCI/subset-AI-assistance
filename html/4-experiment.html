@@ -1,1 +1,137 @@
-Coming soon...
+<!--
+experiment.html
+
+    Author      :   Helio Tejeda
+    University  :   University of California, Irvine
+    Lab         :   Modeling and Decision-Making Lab (MADLAB)
+
+Experiment HTML file.
+-->
+<html>
+    <head>
+        <!--
+            Custom JavaScript - Experiment Page Metadata and Functionality
+        -->
+        <script src="js/4-experiment.js" type="module">
+        </script>
+
+        <style type="text/css">
+            #trial-container {
+                text-align: center;
+                height: 100%;
+            }
+            #trial-container-column {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+                overflow: auto;
+            }
+            #trial-image {
+                height: 40vh;
+            }
+            #trial-image img {
+                height: 100%;
+                /*border: 5px solid rgb(0, 100, 164);*/
+                border-radius: 15px;
+            }
+            #message-to-player {
+            }
+            .options-container {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .options-container label {
+                width: 6%;
+                padding: 0;
+                font-size: small;
+            }
+            .options-container label.disabled {
+                opacity: 0.85;
+            }
+            .options-container .btn-group label img {
+                width: 90%;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Experiment -->
+        <div class="row" id="trial-container">
+            <div class="col-12" id="trial-container-column">
+                <div class="container trial-progress-container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>
+                                <span id="trial-counter">
+                                    Trial
+                                    <span id="currentTrial">
+                                        1
+                                    </span>
+                                    of
+                                    <span id="totalTrials">
+                                        128
+                                    </span>
+                                </span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="container trial-image-container">
+                    <div class="row">
+                        <div class="col-12" id="trial-image">
+                            <img src="images/instructions/n02109525_23299.png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="container trial-option-container" style="margin-top: 10px; display: block; border: 3px solid rgb(0, 100, 164); border-radius: 15px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                <b>AI Suggestions</b>:
+                                Select the Best Option
+                            </h4>
+                            
+                        </div>
+                    </div>
+                    <div class="row alphabetical" id="trial-options-container-alphabetical" hidden>
+                        <div class="col-12 options-container" id="trial-options-alphabetical">
+
+                        </div>
+                    </div>
+                    <div class="row rank" id="trial-options-container-rank" hidden>
+                        <div class="col-12 options-container" id="trial-options-rank">
+                            <!-- Inser buttons here -->
+                        </div>
+                    </div>
+                    <div class="row rank" style="margin-bottom: 0rem;" hidden>
+                        <div class="col-12" style="display: flex; justify-content: space-between;">
+                            <h5 style="text-align: left" id="most-likely">Most Likely</h6>
+                            <hr style="width: 75%; border-top: 2px solid black;"/>
+                            <h5 style="text-align: right" id="least-likely">Least Likely</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="container trial-submit-container" style="margin-top: 10px; display: block; border: 3px solid rgb(0, 100, 164); border-radius: 15px;">
+                    <div class="row" style="margin-bottom: 1rem; margin-top: 0.75rem;">
+                        <div class="col-12">
+                            <h4>Was the correct classification in the options presented?</h4>
+                        </div>
+                        <div class="col-6 text-center" id="trial-submit-agree">
+                            <button name="yes" value="1" type="submit" class="btn btn-primary btn-submit" style="width: 100%; font-weight: bold;" disabled>
+                                Yes
+                            </button>
+                        </div>
+                        <div class="col-6 text-center" id="trial-submit-disagree">
+                            <button name="no" value="0" type="submit" class="btn btn-dark btn-submit" style="width: 100%; font-weight: bold;" disabled>
+                                No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

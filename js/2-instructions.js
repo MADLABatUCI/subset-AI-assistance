@@ -485,6 +485,10 @@ function finishInstructions () {
         `${INSTRUCTIONS_DB_PATH}/TotalTime`,
         INSTRUCTION_END_TIME - INSTRUCTION_START_TIME
     );
+    writeRealtimeDatabase(
+        METADATA_DB_PATH + "/instructionsCompleted",
+        true
+    );
 
     // TODO
     //  Update metadata in DB as well

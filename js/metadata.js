@@ -36,7 +36,7 @@ import {
 *   VARIABLES
 ******************************************************************************/
 // EXPERIMENT METADATA
-export var DEBUG = true;
+export var DEBUG = false;
 export var BETWEEN_SUBJECT_ORDER_CONDITIONS = 2;
 export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 2;
 export var ORDER_CONDITION;
@@ -62,6 +62,7 @@ export var CONSENT_FILE = "html/1-consent.html";
 export var INSTRUCTIONS_FILE = "html/2-instructions.html";
 export var INTEGRITY_FILE = "html/3-integrity-pledge.html";
 export var EXPERIMENT_FILE = "html/4-experiment.html";
+export var COMPLETE_FILE = "html/5-complete.html";
 
 // UNIVERSITY IMAGES/LOGOS
 export var UNIVERSITY_SEAL = "images/uci_seal.png";
@@ -170,7 +171,12 @@ $(document).ready(function (){
 
     displayExperimentHeader();
 
-    loadContent("#experiment-container", "html/1-consent.html");
-    //loadContent("#experiment-container", "html/2-instructions.html");
-    //loadContent("#experiment-container", "html/3-integrity-pledge.html");
+    if (DEBUG) {
+        //loadContent("#experiment-container", "html/1-consent.html");
+        //loadContent("#experiment-container", "html/2-instructions.html");
+        //loadContent("#experiment-container", "html/3-integrity-pledge.html");
+        loadContent("#experiment-container", "html/4-experiment.html");
+    } else {
+        loadContent("#experiment-container", "html/1-consent.html"); 
+    }
 });
