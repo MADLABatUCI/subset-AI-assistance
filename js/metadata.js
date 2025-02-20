@@ -36,7 +36,7 @@ import {
 *   VARIABLES
 ******************************************************************************/
 // EXPERIMENT METADATA
-export var DEBUG = true;
+export var DEBUG = false;
 export var BETWEEN_SUBJECT_ORDER_CONDITIONS = 2;
 export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 2;
 export var ORDER_CONDITION;
@@ -74,7 +74,7 @@ var UNIVERSITY_HEADER = true;
 
 // PROLIFIC REDIRECTS (use a different redirect each time you run experiment)
 export var PROLIFIC_REDIRECT = [
-
+    "https://app.prolific.com/submissions/complete?cc=CCHU3L7K",
 ];
 
 
@@ -177,11 +177,11 @@ $(document).ready(function (){
     displayExperimentHeader();
 
     if (DEBUG) {
-        //loadContent("#experiment-container", "html/1-consent.html");
+        loadContent("#experiment-container", "html/1-consent.html");
         //loadContent("#experiment-container", "html/2-instructions.html");
         //loadContent("#experiment-container", "html/3-integrity-pledge.html");
         //loadContent("#experiment-container", "html/4-experiment.html");
-        loadContent("#experiment-container", "html/5-complete.html");
+        //loadContent("#experiment-container", "html/5-complete.html");
     } else {
         loadContent("#experiment-container", "html/1-consent.html"); 
     }
