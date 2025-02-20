@@ -145,7 +145,6 @@ async function loadInstructionHTML () {
             modifyOpacity("#example-trial-count", 0.25);
             modifyOpacity("#sample-image", 0.25);
             modifyOpacity(".example-submit-container", 0.25);
-            highlightOption("dog", "yellow");
         } else if (i == 4) {
             highlightOption("dog", "white");
             //  Clear content first so that duplication doesn't occur
@@ -191,6 +190,7 @@ function determineActionForInstructionPage () {
     } else if (CURRENT_INSTRUCTION_PAGE == 3) {
         nextButtonActive = false;
         disableButton("next-button");
+        highlightOption("dog", "yellow");
         $(`.example-experiment-option-container label[title='dog']`).click(
             function () {
                 nextButtonActive = true;
@@ -200,12 +200,28 @@ function determineActionForInstructionPage () {
     } else if (CURRENT_INSTRUCTION_PAGE == 4) {
         nextButtonActive = true;
         enableButton("next-button");
+        highlightOption("dog", "white");
+        $(`.example-experiment-option-container label[title='dog']`).unbind('click');
     } else if (CURRENT_INSTRUCTION_PAGE == 5) {
         nextButtonActive = true;
         enableButton("next-button");
+        highlightOption("dog", "white", ".option-container-3");
+        highlightOption("bird", "white", ".option-container-3");
+        highlightOption("elephant", "white", ".option-container-3");
+        highlightOption("bear", "white", ".option-container-3");
+        $(`.option-container-3 label[title='dog']`).unbind('click');
+        $(`.option-container-3 label[title='bird']`).unbind('click');
+        $(`.option-container-3 label[title='elephant']`).unbind('click');
+        $(`.option-container-3 label[title='bear']`).unbind('click');
     } else if (CURRENT_INSTRUCTION_PAGE == 6) {
         nextButtonActive = false;
         disableButton("next-button");
+        $("#example-submit-agree button").prop("disabled", true);
+        $("#example-submit-disagree button").prop("disabled", true);
+        highlightOption("dog", "white", ".option-container-3");
+        highlightOption("bird", "white", ".option-container-3");
+        highlightOption("elephant", "white", ".option-container-3");
+        highlightOption("bear", "white", ".option-container-3");
         $(`.option-container-3 label[title='bird']`).click(
             function () {
                 highlightOption("bird", "#007bff", ".option-container-3");
