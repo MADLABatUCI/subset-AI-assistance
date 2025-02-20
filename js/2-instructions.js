@@ -51,7 +51,7 @@ import {
 var INSTRUCTIONS_DB_PATH = `${EXPERIMENT_DATABASE_NAME}/participantData/${firebaseUserId}/instructionData`;
 //  Instruction Metadata
 let TOTAL_INSTRUCTION_PAGES = 6;
-let CURRENT_INSTRUCTION_PAGE = 1;
+let CURRENT_INSTRUCTION_PAGE;
 //  
 let INSTRUCTION_START_TIME;
 let previousButtonActive = false;
@@ -128,55 +128,6 @@ function highlightOption (option, color, loc = ".example-experiment-option-conta
     highlight(`${loc} label[title=${option}] img`, color);
 };
 
-async function loadInstructionHTML () {
-    console.log("Loading instruction pages");
-    for (let i = 1; i <= TOTAL_INSTRUCTION_PAGES; i++) {
-        $(`.example-experiment`).html(EXPERIMENT_EXAMPLE_COPIES[i-1]);
-        if (i == 1) {
-            blackOutExamples();
-        } else if (i == 2) {
-            blackOutExamples();
-            highlight("#example-trial-count", "yellow");
-            highlight("#sample-image img", "cyan");
-            modifyOpacity(".example-option-container", 0.25);
-            modifyOpacity(".example-submit-container", 0.25);
-        } else if (i == 3) {
-            blackOutExamples();
-            modifyOpacity("#example-trial-count", 0.25);
-            modifyOpacity("#sample-image", 0.25);
-            modifyOpacity(".example-submit-container", 0.25);
-        } else if (i == 4) {
-            highlightOption("dog", "white");
-            //  Clear content first so that duplication doesn't occur
-            $("#example-options-container").html("");
-            let categoryOptions = $(".example-experiment-option-container").clone();
-            hideContent(".example-experiment-container");
-            $("#example-options-container").html(categoryOptions);
-            $("#example-options-container #example-experiment-option-container label").css(
-                "width", "12%"
-            );
-        } else if (i == 5) {
-            hideContent(".example-experiment-container");
-            displayContent(`.${ORDER_CONDITION_STR}`);
-        } else if (i == 6) {
-            placeImage("#sample-image img", "images/instructions/n02504458_4583.png");
-            let AIsuggestions = $(`#example-options-${ORDER_CONDITION_STR}`).clone();
-            $("#example-option-button-container").html(AIsuggestions);
-            if (ORDER_CONDITION) {
-                $("#example-option-button-container").append(`
-                    <div class="col-12" style="display: flex; justify-content: space-between;">
-                        <h6 style="text-align: left" id="most-likely">Most Likely</h6>
-                        <hr style="width: 75%; border-top: 2px solid black;"/>
-                        <h6 style="text-align: right" id="least-likely">Least Likely</h6>
-                    </div>
-                `);
-            };
-        };
-    };
-    generatePagination();
-    displayInstructionPage(CURRENT_INSTRUCTION_PAGE, true);
-};
-
 //  Display Functions (and display functionality)
 function determineActionForInstructionPage () {
     $(`.instruction-page`).scrollTop(0);
@@ -184,14 +135,24 @@ function determineActionForInstructionPage () {
     //      This allows us to make modifications for each instruction page more easily
     $(`.example-experiment`).html(EXPERIMENT_EXAMPLE_COPIES[CURRENT_INSTRUCTION_PAGE-1]);
     if (CURRENT_INSTRUCTION_PAGE == 1) {
+        blackOutExamples();
         nextButtonActive = true;
         enableButton("next-button");
     } else if (CURRENT_INSTRUCTION_PAGE == 2) {
+        blackOutExamples();
         nextButtonActive = true;
         enableButton("next-button");
+        highlight("#example-trial-count", "yellow");
+        highlight("#sample-image img", "cyan");
+        modifyOpacity(".example-option-container", 0.25);
+        modifyOpacity(".example-submit-container", 0.25);
     } else if (CURRENT_INSTRUCTION_PAGE == 3) {
+        blackOutExamples();
         nextButtonActive = false;
         disableButton("next-button");
+        modifyOpacity("#example-trial-count", 0.25);
+        modifyOpacity("#sample-image", 0.25);
+        modifyOpacity(".example-submit-container", 0.25);
         highlightOption("dog", "yellow");
         $(`.example-experiment-option-container label[title='dog']`).click(
             function () {
@@ -202,28 +163,44 @@ function determineActionForInstructionPage () {
     } else if (CURRENT_INSTRUCTION_PAGE == 4) {
         nextButtonActive = true;
         enableButton("next-button");
-        highlightOption("dog", "white");
-        $(`.example-experiment-option-container label[title='dog']`).unbind('click');
+        //  Clear content first so that duplication doesn't occur
+        $("#example-options-container").html("");
+        let categoryOptions = $(".example-experiment-option-container").clone();
+        hideContent(".example-experiment-container");
+        $("#example-options-container").html(categoryOptions);
+        $("#example-options-container #example-experiment-option-container label").css(
+            "width", "12%"
+        );
     } else if (CURRENT_INSTRUCTION_PAGE == 5) {
         nextButtonActive = true;
         enableButton("next-button");
-        highlightOption("dog", "white", ".option-container-3");
+        hideContent(".example-experiment-container");
+        displayContent(`.${ORDER_CONDITION_STR}`);
         highlightOption("bird", "white", ".option-container-3");
+        highlightOption("dog", "white", ".option-container-3");
         highlightOption("elephant", "white", ".option-container-3");
         highlightOption("bear", "white", ".option-container-3");
-        $(`.option-container-3 label[title='dog']`).unbind('click');
         $(`.option-container-3 label[title='bird']`).unbind('click');
+        $(`.option-container-3 label[title='dog']`).unbind('click');
         $(`.option-container-3 label[title='elephant']`).unbind('click');
         $(`.option-container-3 label[title='bear']`).unbind('click');
     } else if (CURRENT_INSTRUCTION_PAGE == 6) {
+        placeImage("#sample-image img", "images/instructions/n02504458_4583.png");
         nextButtonActive = false;
         disableButton("next-button");
         $("#example-submit-agree button").prop("disabled", true);
         $("#example-submit-disagree button").prop("disabled", true);
-        highlightOption("dog", "white", ".option-container-3");
-        highlightOption("bird", "white", ".option-container-3");
-        highlightOption("elephant", "white", ".option-container-3");
-        highlightOption("bear", "white", ".option-container-3");
+        let AIsuggestions = $(`#example-options-${ORDER_CONDITION_STR}`).clone();
+        $("#example-option-button-container").html(AIsuggestions);
+        if (ORDER_CONDITION) {
+            $("#example-option-button-container").append(`
+                <div class="col-12" style="display: flex; justify-content: space-between;">
+                    <h6 style="text-align: left" id="most-likely">Most Likely</h6>
+                    <hr style="width: 75%; border-top: 2px solid black;"/>
+                    <h6 style="text-align: right" id="least-likely">Least Likely</h6>
+                </div>
+            `);
+        };
         $(`.option-container-3 label[title='bird']`).click(
             function () {
                 highlightOption("bird", "#007bff", ".option-container-3");
@@ -517,7 +494,6 @@ function finishInstructions () {
 };
 
 
-await loadInstructionHTML();
 /******************************************************************************
     RUN ON PAGE LOAD
 
@@ -527,9 +503,11 @@ await loadInstructionHTML();
 $(document).ready(function (){
     //  Load instruction page
     //      NOTE: if you are debugging, load the page you want to work on
-    if (DEBUG) {
-        CURRENT_INSTRUCTION_PAGE = 4;
-    };
+    CURRENT_INSTRUCTION_PAGE = 1;
+    generatePagination();
+    displayInstructionPage(CURRENT_INSTRUCTION_PAGE, true);
+
+    
 
     //  Activate event listeners for button clicks
     $("#previous-button").click(previousButton);
