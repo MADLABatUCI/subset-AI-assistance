@@ -50,7 +50,14 @@ let NUMBER_OF_CATEGORIES        = 16;
 let CURRENT_TRIAL               = 1;
 let TOTAL_TRIALS                = 128;
 let DISPLAY_OPTIONS             = 4;
-let DATA_FILE = `experiment/data/ksubset_noisy_img_model${MODEL_CONDITION ? "B" : "A"}.json`;
+let DATA_FILE;
+if (MODEL_CONDITION === 1) {
+    DATA_FILE = `experiment/data/ksubset_noisy_img_modelB.json`;
+} else if (MODEL_CONDITION === 2) {
+    DATA_FILE = `experiment/data/ksubset_noisy_img_modelC.json`;
+} else {
+    DATA_FILE = `experiment/data/ksubset_noisy_img_modelA.json`;
+};
 let IMAGE_PATH = `experiment/stimuli`;
 
 //      Database Path
@@ -221,8 +228,6 @@ function presentTrial () {
     $('#currentTrial').text(CURRENT_TRIAL);
 
     //  Update Image
-    console.log(EXPERIMENT_TRIALS);
-    console.log(CURRENT_TRIAL)
     placeImage('#trial-image img', `${IMAGE_PATH}/${EXPERIMENT_TRIALS[CURRENT_TRIAL-1].imageName}.png`);
 
     //  Update Options
@@ -239,6 +244,8 @@ function presentTrial () {
     thisTrialData["trialTimeBegin"] = TRIAL_START_TIME.toString();
 
     if (DEBUG) {
+        console.log(EXPERIMENT_TRIALS);
+        console.log(CURRENT_TRIAL)
         console.log(' Current Trial Number   =', CURRENT_TRIAL);
         console.log(' Current Trial Data     =', EXPERIMENT_TRIALS[CURRENT_TRIAL-1]);
         console.log(' Current Trial Options  =', OPTIONS_TO_SHOW[CURRENT_TRIAL-1]);
@@ -459,16 +466,24 @@ if (DEBUG) {
     TOTAL_TRIALS = 5;
     IMAGE_TRIALS = [2, 3, 8, 18, 6];
     OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
+    console.log("Data file used :", DATA_FILE);
     console.log("Trial Questions");
     console.log(trialQuestions);
     EXPERIMENT_TRIALS = trialQuestions;
+    await experimentSetUp2();
+    console.log("COMPLETED");
+    console.log("Trial Indexes\n", IMAGE_TRIALS);
+    console.log("Options to show\n", OPTIONS_TO_SHOW);
+    console.log("Experiment Trials (all)\n", EXPERIMENT_TRIALS);
 }
 //  Call Sampling function, but make suer we wait until it is finished to continue (await)
 else {
     await experimentSetUp2();
     console.log("COMPLETED");
-    console.log(IMAGE_TRIALS);
-    console.log(OPTIONS_TO_SHOW);
+    console.log("COMPLETED");
+    console.log("Trial Indexes\n", IMAGE_TRIALS);
+    console.log("Options to show\n", OPTIONS_TO_SHOW);
+    console.log("Experiment Trials (all)\n", EXPERIMENT_TRIALS);
 };
 hideContent(`#mainexperiment-container-loading-page`);
 displayContent(`#trial-container`);
@@ -487,14 +502,9 @@ $(document).ready(function (){
     //  Shuffle trials for this experiment!
     shuffle(IMAGE_TRIALS, OPTIONS_TO_SHOW);
     EXPERIMENT_TRIALS = IMAGE_TRIALS.slice(0, TOTAL_TRIALS).map(i => trialQuestions[i]);
-    //if (DEBUG_EXPERIMENT_CONCURRENT){
-    console.log("Trials\n", IMAGE_TRIALS);
-    console.log("Explanation\n", OPTIONS_TO_SHOW);
 
     //  Present the first image
     TRIAL_DATA = presentTrial();
-    console.log("TRIAL DATA IS :", TRIAL_DATA);
-
     
     $(`.btn-submit`).click(nextTask);
 });

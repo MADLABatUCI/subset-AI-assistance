@@ -36,9 +36,9 @@ import {
 *   VARIABLES
 ******************************************************************************/
 // EXPERIMENT METADATA
-export var DEBUG = false;
+export var DEBUG = true;
 export var BETWEEN_SUBJECT_ORDER_CONDITIONS = 2;
-export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 2;
+export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 3;
 export var ORDER_CONDITION;
 export var ORDER_CONDITION_STR;
 export var MODEL_CONDITION;
@@ -145,10 +145,17 @@ async function getModelCondition() {
         MAX_COMPLETION_TIME, numDraws); // the await keyword is mandatory
 
     MODEL_CONDITION = assignedCondition[0];
+    // Model B (best performing model)
     if (MODEL_CONDITION === 1) {
         MODEL_CONDITION_STR = "good";
-    } else {
+    }
+    // Model A (worst performing model)
+    else if (MODEL_CONDITION === 0) {
         MODEL_CONDITION_STR = "poor";
+    }
+    // Model C (medium performing model)
+    else if (MODEL_CONDITION === 2) {
+        MODEL_CONDITION_STR = "human";
     };
 
     // Write to Database Metadata
@@ -177,10 +184,10 @@ $(document).ready(function (){
     displayExperimentHeader();
 
     if (DEBUG) {
-        loadContent("#experiment-container", "html/1-consent.html");
+        //loadContent("#experiment-container", "html/1-consent.html");
         //loadContent("#experiment-container", "html/2-instructions.html");
         //loadContent("#experiment-container", "html/3-integrity-pledge.html");
-        //loadContent("#experiment-container", "html/4-experiment.html");
+        loadContent("#experiment-container", "html/4-experiment.html");
         //loadContent("#experiment-container", "html/5-complete.html");
     } else {
         loadContent("#experiment-container", "html/1-consent.html"); 
