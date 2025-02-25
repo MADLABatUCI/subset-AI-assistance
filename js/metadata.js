@@ -36,7 +36,7 @@ import {
 *   VARIABLES
 ******************************************************************************/
 // EXPERIMENT METADATA
-export var DEBUG = true;
+export var DEBUG = false;
 export var BETWEEN_SUBJECT_ORDER_CONDITIONS = 2;
 export var BETWEEN_SUBJECT_MODEL_CONDITIONS = 3;
 export var ORDER_CONDITION;
