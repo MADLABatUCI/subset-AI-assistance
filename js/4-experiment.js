@@ -431,17 +431,6 @@ async function experimentSetUp2() {
 
 
 /******************************************************************************
-    DEBUG
-
-        For now we are in DEBUG mode and will only present a single question.
-******************************************************************************/
-//  Determine the mode and questions
-if (DEBUG){
-    TOTAL_TRIALS = 5;
-    OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
-};
-
-/******************************************************************************
     ORDERED FUNCTIONALITY
 
         Run the following sequence of events/functions in order.
@@ -461,20 +450,28 @@ let trialQuestions = (function () {
     return json;
 })();
 
-//  Only print on DEBUG mode
+/******************************************************************************
+    DEBUG
+
+        For now we are in DEBUG mode and will only present a single question.
+******************************************************************************/
 if (DEBUG) {
+    TOTAL_TRIALS = 5;
+    IMAGE_TRIALS = [2, 3, 8, 18, 6];
+    OPTIONS_TO_SHOW = [2, 4, 16, 8, 4];
     console.log("Trial Questions");
     console.log(trialQuestions);
     EXPERIMENT_TRIALS = trialQuestions;
-};
-
+}
 //  Call Sampling function, but make suer we wait until it is finished to continue (await)
-await experimentSetUp2();
+else {
+    await experimentSetUp2();
+    console.log("COMPLETED");
+    console.log(IMAGE_TRIALS);
+    console.log(OPTIONS_TO_SHOW);
+};
 hideContent(`#mainexperiment-container-loading-page`);
 displayContent(`#trial-container`);
-console.log("COMPLETED");
-console.log(IMAGE_TRIALS);
-console.log(OPTIONS_TO_SHOW);
 
 /******************************************************************************
     RUN ON PAGE LOAD
